@@ -23,5 +23,4 @@ function refresh() {
     });
     setTimeout(refresh, 100000);
 }
-
 refresh();
