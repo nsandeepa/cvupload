@@ -2,7 +2,7 @@
  * Created by nilupul on 5/1/17.
  */
 
-
+var fs = require('fs');
 var google = require('googleapis');
 var googleAuth = require('google-auth-library');
 
@@ -16,10 +16,12 @@ var token = JSON.parse(fs.readFileSync(TOKEN_PATH));
 oauth2Client.setCredentials(token);
 console.log(oauth2Client);
 
-for(int i = 0; i < 240; i++) {
-    setTimeout(funtion() {
-        oauth2Client.refreshAccessToken(function(err, tokens) {
-                            fs.writeFile(TOKEN_PATH, JSON.stringify(tokens));
-        });
-    }, 1800000);
+function refresh() {
+    oauth2Client.refreshAccessToken(function(err, tokens) {
+        console.log(tokens);
+        fs.writeFile(TOKEN_PATH, JSON.stringify(tokens));
+    });
+    setTimeout(refresh, 100000);
 }
+
+refresh();
