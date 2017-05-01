@@ -8,6 +8,7 @@ var googleAuth = require('google-auth-library');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
+//var SCOPES = ['https://www.googleapis.com/auth/drive'];
 var TOKEN_DIR = __dirname + '/.credentials/';
 var TOKEN_PATH = TOKEN_DIR + 'drive-nodejs-quickstart.json';
 
@@ -63,12 +64,6 @@ app.post('/upload', function(req, res){
                 // Handle error
                 res.end('error');
                 console.log(err);
-                oauth2Client.refreshAccessToken(function(err, tokens) {
-                    console.log("New Tokens ---> " + tokens);
-                    fs.writeFile(TOKEN_PATH, JSON.stringify(tokens));
-                    token = JSON.parse(fs.readFileSync(TOKEN_PATH));
-                    oauth2Client.setCredentials(token);
-                });
             } else {
                 res.end('success');
                 console.log('File Id: ', file.id);
@@ -81,6 +76,6 @@ app.post('/upload', function(req, res){
 
 });
 
-app.listen(3000, function(){
+app.listen(5000, function(){
     console.log('Server listening on port 5000');
 });
